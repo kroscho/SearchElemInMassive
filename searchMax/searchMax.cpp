@@ -112,8 +112,16 @@ int main()
     SetConsoleCP(1251);
     //задаем кодировку для ввода символов с клавиатуры в консоль
     SetConsoleOutputCP(1251);
+    
+    double timeStart, timeFinish;
+    double timeSearch;
+    int id;
+    /*timeStart = clock();
+    for (int i=0; i<100000000; i++)
+        int p = 1;
+    timeFinish = clock();
+    cout << "time: " << (timeFinish - timeStart)/1000./300000002. << endl;*/
 
-    int id = 0;
     bool out = true;
 
     Vvod();
@@ -121,10 +129,7 @@ int main()
     while (out)
     {
         cout << "\nВыберите алгоритм: 1 - линейный поиск, 2 - бинарный поиск\n";
-        cin >> v;
-
-        double timeStart, timeFinish;
-        double timeSearch;
+        cin >> v;       
 
         if (v == 1)
         {           
@@ -134,9 +139,11 @@ int main()
         }
         else
         {
+            //timeStart = clock();
             qsort(mas, n, sizeof(int), comp1);
             timeStart = clock();
-            id = binarySearch();
+            for (int i=0; i<100000; i++)
+                id = binarySearch();
             timeFinish = clock();
         }
 
@@ -147,7 +154,7 @@ int main()
 
         //время выполнения алгоритма
         timeSearch = (timeFinish - timeStart) / 1000.0;
-        cout << "\nВремя выполнения: " << timeSearch;
+        cout << "\nВремя выполнения: " << timeSearch << "c";
 
         cout << "\n\nПродолжить? 1 - да, 0 - нет:  ";
         cin >> out;
