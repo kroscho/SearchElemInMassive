@@ -6,7 +6,7 @@
 using namespace std;
 
 int v, n, x;
-unsigned long int *mas;
+unsigned long int* mas;
 
 void Vvod()
 {
@@ -65,12 +65,19 @@ void Vvod()
     }
 }
 
+
+//функция для сортировки по возрастанию
+int comp1(const void* a, const void* b)
+{
+    return (*(int*)a - *(int*)b);
+}
+
 //линейный поиск
 int linearSearch()
 {
     for (int i = 0; i < n; i++)
     {
-        if (mas[i] == x)                    
+        if (mas[i] == x)
             return i;
     }
     return -1;
@@ -79,18 +86,23 @@ int linearSearch()
 //бинарный поиск
 int binarySearch()
 {
-    int l = 0, r = n;
+    int l = 0, r = n, m;
 
     while (r >= l) //для того, чтобы если элемент не найден
     {
-        int m = (l + r) / 2; //середина
+        m = (l + r) / 2; //середина
         if (mas[m] == x)  //если элемент найден, возвращаем индекс      
-            return m;        
+        {
+            while (mas[m - 1] == x)
+                m--;
+            return m;            
+        }
         else if (mas[m] < x)  //если элемент находится правее, сдвигаем левый край, иначе правый 
-            l = m + 1; 
+            l = m + 1;
         else
             r = m - 1;
     }
+
     return -1; //если элемент не найден, возвращаем -1
 }
 
@@ -100,7 +112,7 @@ int main()
     SetConsoleCP(1251);
     //задаем кодировку для ввода символов с клавиатуры в консоль
     SetConsoleOutputCP(1251);
-    
+
     int id = 0;
     bool out = true;
 
@@ -115,13 +127,14 @@ int main()
         double timeSearch;
 
         if (v == 1)
-        {
+        {           
             timeStart = clock();
             id = linearSearch();
             timeFinish = clock();
         }
         else
         {
+            qsort(mas, n, sizeof(int), comp1);
             timeStart = clock();
             id = binarySearch();
             timeFinish = clock();
@@ -133,7 +146,7 @@ int main()
             cout << "Индекс искомого элемента: " << id;
 
         //время выполнения алгоритма
-        timeSearch = (timeFinish - timeStart)/1000.0;
+        timeSearch = (timeFinish - timeStart) / 1000.0;
         cout << "\nВремя выполнения: " << timeSearch;
 
         cout << "\n\nПродолжить? 1 - да, 0 - нет:  ";
