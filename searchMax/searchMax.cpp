@@ -60,6 +60,7 @@ void Vvod()
             mas[i] = rand();
             //cout << mas[i] << " ";
         }
+        mas[n/2-1] = 12321126;
         break;
     }
     }
